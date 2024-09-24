@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Automatically detect network interface (the first non-loopback interface)
+# Automatically detect network interface
 INTERFACE=$(ip -o -4 route show to default | awk '{print $5}')
 echo "Detected network interface: $INTERFACE"
 
@@ -16,7 +16,7 @@ echo "Detected gateway: $GATEWAY"
 STORAGE_DEVICE=$(lsblk -o NAME,TYPE | grep disk | awk 'NR==1{print "/dev/"$1}')
 echo "Detected storage device: $STORAGE_DEVICE"
 
-# Set root password (change to your desired method for setting the password)
+# Set root password
 ROOT_PASSWORD="your_secure_password_here"
 echo "Using root password: $ROOT_PASSWORD"
 
@@ -26,8 +26,12 @@ wget https://download.mikrotik.com/routeros/7.5/chr-7.5.img.zip -O chr.img.zip &
 # Extract the image
 gunzip -c chr.img.zip > chr.img && \
 
+# Set up loop device
+LOOP_DEVICE=$(sudo losetup -f)
+sudo losetup -fP chr.img && \
+
 # Mount the image
-mount -o loop,offset=512 chr.img /mnt && \
+sudo mount -o loop,offset=512 $LOOP_DEVICE /mnt && \
 
 # Create the MikroTik configuration script
 echo "/ip address add address=$ADDRESS interface=[/interface ethernet find where name=ether1]
@@ -44,3 +48,6 @@ echo "Sleep 5 seconds" && \
 sleep 5 && \
 echo "Ok, reboot" && \
 echo b > /proc/sysrq-trigger
+
+# Clean up loop device
+sudo losetup -d $LOOP_DEVICE

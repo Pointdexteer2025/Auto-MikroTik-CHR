@@ -34,19 +34,19 @@ show_system_details() {
     echo -e "\e[32mSystem Details:\nIP: $IP\nRAM: ${RAM}MB\nCPU: $CPU\nStorage: $STORAGE\e[0m" # Green color
 }
 
-# Function to check and install pyfiglet
-install_pyfiglet() {
-    if ! python3 -c "import pyfiglet" &> /dev/null; then
-        echo -e "\e[33mInstalling pyfiglet...\e[0m" # Yellow color
-        pip3 install pyfiglet
+# Function to install figlet and toilet if not installed
+install_figlet_toilet() {
+    if ! command -v figlet &> /dev/null || ! command -v toilet &> /dev/null; then
+        echo -e "\e[33mInstalling figlet and toilet...\e[0m" # Yellow color
+        sudo apt update && sudo apt install -y figlet toilet
     else
-        echo -e "\e[32mpyfiglet is already installed.\e[0m" # Green color
+        echo -e "\e[32mfiglet and toilet are already installed.\e[0m" # Green color
     fi
 }
 
-# Display ASCII banner using pyfiglet
-install_pyfiglet
-python3 -c "import pyfiglet; print(pyfiglet.figlet_format('MikroTik Installer By Saju'))"
+# Display ASCII banner using figlet
+install_figlet_toilet
+figlet -c "MikroTik Installer By Saju"
 
 # Check if the user is root
 check_root

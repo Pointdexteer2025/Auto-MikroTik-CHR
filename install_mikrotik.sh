@@ -34,19 +34,17 @@ show_system_details() {
     echo -e "\e[32mSystem Details:\nIP: $IP\nRAM: ${RAM}MB\nCPU: $CPU\nStorage: $STORAGE\e[0m" # Green color
 }
 
-# Function to install figlet and toilet if not installed
-install_figlet_toilet() {
-    if ! command -v figlet &> /dev/null || ! command -v toilet &> /dev/null; then
-        echo -e "\e[33mInstalling figlet and toilet...\e[0m" # Yellow color
-        sudo apt update && sudo apt install -y figlet toilet
-    else
-        echo -e "\e[32mfiglet and toilet are already installed.\e[0m" # Green color
-    fi
-}
-
 # Display ASCII banner using figlet
-install_figlet_toilet
-figlet -c "MikroTik Installer By Saju"
+
+echo "  __  __  _  _              _______  _  _      _____              _          _  _               ____            _____         _        ";
+echo " |  \/  |(_)| |            |__   __|(_)| |    |_   _|            | |        | || |             |  _ \          / ____|       (_)       ";
+echo " | \  / | _ | | __ _ __  ___  | |    _ | | __   | |   _ __   ___ | |_  __ _ | || |  ___  _ __  | |_) | _   _  | (___    __ _  _  _   _ ";
+echo " | |\/| || || |/ /| '__|/ _ \ | |   | || |/ /   | |  | '_ \ / __|| __|/ _\` || || | / _ \| '__| |  _ < | | | |  \___ \  / _\` || || | | |";
+echo " | |  | || ||   < | |  | (_) || |   | ||   <   _| |_ | | | |\__ \| |_| (_| || || ||  __/| |    | |_) || |_| |  ____) || (_| || || |_| |";
+echo " |_|  |_||_||_|\_\|_|   \___/ |_|   |_||_|\_\ |_____||_| |_||___/ \__|\__,_||_||_| \___||_|    |____/  \__, | |_____/  \__,_|| | \__,_|";
+echo "                                                                                                        __/ |               _/ |       ";
+echo "                                                                                                       |___/               |__/        ";
+
 
 # Check if the user is root
 check_root

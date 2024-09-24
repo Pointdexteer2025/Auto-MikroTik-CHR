@@ -34,14 +34,19 @@ show_system_details() {
     echo -e "\e[32mSystem Details:\nIP: $IP\nRAM: ${RAM}MB\nCPU: $CPU\nStorage: $STORAGE\e[0m" # Green color
 }
 
-echo -e "\e[33m   __  __ _ _           _______ _ _      _____           _        _ _             _              _____       _       \e[0m"
-echo -e "\e[33m  |  \/  (_) |         |__   __(_) |    |_   _|         | |      | | |           | |            / ____|     (_)      \e[0m"
-echo -e "\e[33m  | \  / |_| | ___ __ ___ | |   _| | __   | |  _ __  ___| |_ __ _| | | ___ _ __  | |__  _   _  | (___   __ _ _ _   _ \e[0m"
-echo -e "\e[33m  | |\/| | | |/ / '__/ _ \| |  | | |/ /   | | | '_ \/ __| __/ _ \ | | |/ _ \ '__| | '_ \| | | |  \___ \ / _` | | | | |\e[0m"
-echo -e "\e[33m  | |  | | |   <| | | (_) | |  | |   <   _| |_| | | \__ \ || (_| | | |  __/ |    | |_) | |_| |  ____) | (_| | | |_| |\e[0m"
-echo -e "\e[33m  |_|  |_|_|_|\_\_|  \___/|_|  |_|_|\_\ |_____|_| |_|___/\__\__,_|_|_|\___|_|    |_.__/ \__, | |_____/ \__,_| |\__,_|\e[0m"
-echo -e "\e[33m                                                                                         __/ |             _/ |      \e[0m"
-echo -e "\e[33m                                                                                         |___/             |__/      \e[0m"                                                                                                              \e[0m"
+# Function to check and install pyfiglet
+install_pyfiglet() {
+    if ! python3 -c "import pyfiglet" &> /dev/null; then
+        echo -e "\e[33mInstalling pyfiglet...\e[0m" # Yellow color
+        pip3 install pyfiglet
+    else
+        echo -e "\e[32mpyfiglet is already installed.\e[0m" # Green color
+    fi
+}
+
+# Display ASCII banner using pyfiglet
+install_pyfiglet
+python3 -c "import pyfiglet; print(pyfiglet.figlet_format('MikroTik Installer By Saju'))"
 
 # Check if the user is root
 check_root

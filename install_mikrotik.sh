@@ -88,3 +88,5 @@ echo "/ip address add address=${INTERFACE_IP} interface=[/interface ethernet fin
 } & show_loading
 
 echo -e "\e[32mInstallation complete. Reboot your server now, Please log in and configure your password using Winbox.\e[0m" # Green color
+
+reboot
